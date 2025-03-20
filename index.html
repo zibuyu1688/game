@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Survivors - Epic Survival Adventure Game | Play Free Online | Aligame.xyz</title>
+    <meta name="description" content="Play Monster Survivors online for free! Battle waves of monsters, upgrade your weapons, and survive in this thrilling action-packed adventure game. Inspired by Vampire Survivors, featuring multiple characters, weapon evolution, and daily challenges.">
+    <meta name="keywords" content="Monster Survivors, online game, survival game, action game, free game, browser game, roguelike, Vampire Survivors">
+    <link rel="canonical" href="https://aligame.xyz" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        :root {
+            --primary: #0066FF;
+            --primary-dark: #0052CC;
+            --secondary: #6C5CE7;
+            --accent: #00B894;
+            --background: #F0F2F5;
+            --card-bg: #FFFFFF;
+            --text-primary: #2D3436;
+            --text-secondary: #636E72;
+            --purple: #6C5CE7;
+            --orange: #FF9F43;
+            --green: #00B894;
+            --red: #FF4757;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+        }
+        .game-container {
+            aspect-ratio: 16/9;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 6rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.1;
+        }
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+            background: linear-gradient(to bottom right, var(--card-bg), #FAFBFC);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card.multiple-characters {
+            border-left: 4px solid var(--purple);
+        }
+        .feature-card.weapon-evolution {
+            border-left: 4px solid var(--orange);
+        }
+        .feature-card.level-up {
+            border-left: 4px solid var(--green);
+        }
+        .feature-card.boss-battles {
+            border-left: 4px solid var(--red);
+        }
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+            box-shadow: 0 4px 6px rgba(0, 102, 255, 0.2);
+        }
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 102, 255, 0.3);
+        }
+        .cta-button:hover::after {
+            transform: translateX(100%);
+        }
+        .control-key {
+            background: var(--background);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.75rem;
+            left: 0;
+            width: 3rem;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        .nav-link {
+            position: relative;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0.1;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary">Aligame.xyz</div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#game" class="nav-link">Play Now</a>
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#controls" class="nav-link">Controls</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <h1 class="text-6xl font-bold mb-6">Monster Survivors</h1>
+            <p class="text-xl text-gray-300 mb-8">Survive and fight against endless waves of monsters in this action-packed roguelike adventure!</p>
+            <a href="#game" class="cta-button text-white px-8 py-3 rounded-full font-semibold inline-block">Play Now - It's Free!</a>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div id="game" class="game-container bg-white rounded-lg shadow-lg overflow-hidden mb-12">
+            <iframe 
+                src="https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html" 
+                class="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div id="features" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <section id="overview" class="bg-white p-8 rounded-lg shadow-lg feature-card">
+                <h2 class="section-title text-3xl font-bold text-gray-900">About Monster Survivors</h2>
+                <p class="text-gray-600 mb-6 text-lg">Monster Survivors is an action-packed roguelike survival game where you must fight against endless waves of monsters. Each run is unique, with random enemy spawns, power-ups, and challenges to overcome.</p>
+                <p class="text-gray-600 mb-6">Inspired by games like Vampire Survivors, this game combines fast-paced action with strategic character building. How long can you survive as the difficulty continuously increases?</p>
+                <ul class="list-none space-y-4">
+                    <li class="flex items-center">
+                        <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                        <span class="text-gray-600">Multiple unique characters to choose from</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                        <span class="text-gray-600">Weapon evolution and combination system</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                        <span class="text-gray-600">Level up and skill tree progression</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="w-2 h-2 bg-red-500 rounded-full mr-3"></span>
+                        <span class="text-gray-600">Epic boss battles</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                        <span class="text-gray-600">Daily challenges and leaderboards</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></span>
+                        <span class="text-gray-600">Treasure chests with random rewards</span>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="space-y-6">
+                <section class="bg-white p-6 rounded-lg shadow-lg feature-card multiple-characters">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Multiple Characters</h3>
+                    <p class="text-gray-600">Choose from various characters, each with unique starting weapons and abilities.</p>
+                </section>
+                
+                <section class="bg-white p-6 rounded-lg shadow-lg feature-card weapon-evolution">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Weapon Evolution</h3>
+                    <p class="text-gray-600">Combine weapons and passive items to create powerful evolved weapons with special effects.</p>
+                </section>
+                
+                <section class="bg-white p-6 rounded-lg shadow-lg feature-card level-up">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Level Up System</h3>
+                    <p class="text-gray-600">Gain experience by defeating enemies and level up to choose new weapons or upgrades.</p>
+                </section>
+                
+                <section class="bg-white p-6 rounded-lg shadow-lg feature-card boss-battles">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Boss Battles</h3>
+                    <p class="text-gray-600">Face off against massive boss monsters that appear at specific time intervals.</p>
+                </section>
+            </div>
+        </div>
+
+        <section id="controls" class="bg-white p-8 rounded-lg shadow-lg mb-12">
+            <h2 class="section-title text-2xl font-semibold text-gray-900 mb-6">Game Controls</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Keyboard Controls</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <span class="control-key mr-2">WASD</span> or <span class="control-key mx-2">Arrow Keys</span>
+                            <span class="text-gray-600">Move your character</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="control-key mr-2">Space</span>
+                            <span class="text-gray-600">Pause the game</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="control-key mr-2">E</span> or <span class="control-key mx-2">Enter</span>
+                            <span class="text-gray-600">Select/Confirm</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="control-key mr-2">Esc</span>
+                            <span class="text-gray-600">Back/Menu</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Mobile Controls</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <span class="text-gray-600">Virtual Joystick: Appears on the left side of the screen for movement</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-gray-600">Tap Buttons: Menu and action buttons on the right side</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-gray-600">Swipe: Navigate menus and selection screens</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-8 rounded-lg shadow-lg mb-12">
+            <h2 class="section-title text-2xl font-semibold text-gray-900 mb-6">Why Choose Monster Survivors?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="font-semibold mb-2">Instant Play</h3>
+                    <p class="text-gray-600">No downloads required - start playing immediately in your browser</p>
+                </div>
+                <div class="text-center">
+                    <div class="feature-icon">⚔️</div>
+                    <h3 class="font-semibold mb-2">Action-Packed</h3>
+                    <p class="text-gray-600">Intense battles and thrilling gameplay mechanics</p>
+                </div>
+                <div class="text-center">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="font-semibold mb-2">Daily Challenges</h3>
+                    <p class="text-gray-600">Compete in daily challenges and climb the global leaderboard</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="font-semibold mb-4">About Aligame.xyz</h3>
+                    <p class="text-gray-600">Your premier destination for free online games. Play Monster Survivors and many other exciting games instantly!</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#game" class="nav-link">Play Now</a></li>
+                        <li><a href="#features" class="nav-link">Features</a></li>
+                        <li><a href="#controls" class="nav-link">Controls</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="nav-link">Twitter</a>
+                        <a href="#" class="nav-link">Discord</a>
+                        <a href="#" class="nav-link">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t mt-8 pt-8 text-center text-gray-500">
+                <p>© 2024 Aligame.xyz - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
